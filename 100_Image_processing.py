@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage import io
 
-st.title("画像処理１００本ノック")
-st.write("画像処理について知りたい！研究の前に勉強しておきたい！ということで、画像処理100本ノックをやります")
+st.title("画像処理いろいろ")
+st.write("画像処理について知りたい！研究の前に勉強しておきたい！ということで、画像処理100本ノックをやってみるページ")
 link_1 = '[画像処理100本ノック!!](https://github.com/yoyoyo-yo/Gasyori100knock)'
 st.markdown(link_1, unsafe_allow_html=True)
 
@@ -78,6 +78,24 @@ def Binarization_otsu(img):
             else:
                 img_aft[i][j] = 255
     return img_aft.astype(np.uint8)
+
+def HSV_translate(img):
+    img_aft = img
+    for i in range(128):
+        for j in range(128):
+            R,G,B = img[i][j][0],img[i][j][1],img[i][j][2]
+            Vmax,max_RGB  = max([ R,G,B ]),np.argmax([ R,G,B ])
+            Vmin,min_RGB = min([ R,G,B ]),np.argmin([ R,G,B ])
+            if Vmax == Vmin: Hd = 0
+            elif min_RGB == 0: Hd = (60*(B-G)/(Vmax-Vmin) + 180)/60 
+            elif min_RGB == 1: Hd = (60*(R-B)/(Vmax-Vmin) + 300)/60
+            elif min_RGB == 2: Hd = (60*(G-R)/(Vmax-Vmin) + 60)/60
+            S,V = Vmax - Vmin,Vmax
+            X = S*(1-abs(Hd%2 - 1))
+            
+
+            
+    return img.astype(np.uint8)
 
 def Question(num,title,func):
     st.header(title)
@@ -175,6 +193,8 @@ def Binarization_otsu(img):
     return img_aft.astype(np.uint8)
 ```
 """
+
+Question("5", "Q.5 HSV変換で色相(Hue)反転", HSV_translate)
 
 
 st.sidebar.header("もくじ")
