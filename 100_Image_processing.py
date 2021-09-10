@@ -245,7 +245,7 @@ def Binarization_otsu(img):
     return img_aft.astype(np.uint8)
 ```
 """
-change = st.slider('色相変化', min_value=0, max_value=180, )
+change = st.slider('色相変化', min_value=0, max_value=180)
 Question("5", "Q.5 HSV変換で色相(Hue)反転 要修正", rgb2hsv)
 """
 ```python
